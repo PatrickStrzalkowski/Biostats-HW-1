@@ -1,0 +1,100 @@
+---
+title: "Homework 1"
+author: "Patrick Strzalkowski"
+date: "10/01/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Question 1
+strainA=c(0.17,0.20,0.13,0.20,0.24,0.25,0.15,0.21,0.21)
+strainB=c(0.47,0.21,0.34,0.32,0.33,0.29,0.18,0.20,0.25)
+common=c(0.44,0.33,0.37,0.33,0.31,0.27,0.22,0.30,0.28)
+#Question 2
+mean(strainA)-mean(strainB)
+```
+#The difference between the mean of strain A and strain B is -0.09222222 umoles/g
+```{r}
+#Question 3
+mean(common)-mean(strainA)
+```
+#The difference between the common strain and the mean of strain A is 0.1211111 umoles/g
+```{r}
+#Question 4
+hist(common)
+```
+```{r}
+#Question 5, 6
+Peroxide=c(0.27,0.21,0.34,0.32,0.24,0.29,0.18,0.20,0.29)
+Growth.rate=c(1.79,1.01,1.71,1.89,1.41,1.15,1.13,1.20,1.10)
+plot(Peroxide,Growth.rate,xlab="Peroxide (umoles)",ylab="Growth Rate (cm/day)")
+```
+
+#Question 7
+#There is a positive relationship between the peroxide concentration in leaves and the fungal growth rate on those leaves. If the hypothesis is that hydrogen peroxide is used for defence against fungus, then this data does not support this hypothesis as based on this data it appears that hydrogen peroxide does not impede the growth of fungus. 
+```{r}
+#Questio 8
+my.data=read.csv(file.choose())
+my.data
+#Question 9
+x=table(my.data$Nesting.Status,my.data$Species)
+x
+```
+
+```{r}
+#Question 10
+#basic r
+barplot(x,names.arg=my.data$x,main="Turtes nesting aborted or successful nesting sites", xlab="Species", ylab="Count", ylim=c(0,20),col=c('red', 'green'), beside=TRUE)
+```
+
+
+```{r}
+#Question 10 with ggplot
+#install.packages("ggplot2") & install.packages("stringi")
+library(ggplot2)
+#Graph
+#future reference:my.data$Nesting.Status<-factor(my.data$Nesting.Status), my.data$Species<-factor(my.data$Species)
+p<-ggplot(my.data, aes(Nesting.Status))
+#aes is the plotted data, facet_grid is the seperation and the .~ changes horizontal or vertical, scale fill manual is colouring, theme is legend removal
+p+geom_bar(aes(fill=Nesting.Status))+facet_grid(.~Species)+ scale_fill_manual(values=c("red","green"))+theme(legend.position="none")
+```
+
+```{r}
+#Question 11
+success=c(4,4,16)
+
+mean(success)
+
+sd(success)
+ 
+```
+
+```{r}
+#Question 12
+Prop.Hawksbill=c(3/7)
+'Hawksbill='
+Prop.Hawksbill
+Prop.Leatherback=c(2/6)
+"Leatherback="
+Prop.Leatherback
+Prop.OliveRidley=c(4/20)
+"Olive Ridley="
+Prop.OliveRidley
+```
+#The Hawksbill species has the highest rate of failed nesting attempts at 42.9% and therefore I would choose as the species that needs the greatest conservation effort
+```{r}
+#Question 13
+egg.data=read.csv(file.choose())
+egg.data
+#Question 14
+boxplot(egg.data$Olive.Ridley,egg.data$Hawksbill,egg.data$Leatherback, names=c("Olive Ridley","Hawksbill","Leatherback"), main="Mean Number of Eggs Laid Per Nest",ylab='Number of Eggs', xlab='Turtle Species', col=c('yellow','green','blue'))
+```
+```{r}
+#Question 15
+plot(egg.data$Hawksbill,egg.data$Leatherback,main="Number of Eggs Laid", xlab="Number of Hawksbill Eggs",ylab="Number of Leatherback Eggs")
+
+```
